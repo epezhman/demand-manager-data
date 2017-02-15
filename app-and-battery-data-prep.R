@@ -2,56 +2,99 @@ Sys.setlocale("LC_TIME", "C")
 
 setwd("~/exports")
 
-dmLogs <- read.csv("battery.csv", header = FALSE, strip.white = TRUE)
-#meterHours <- read.csv("hours.csv", header = TRUE, strip.white = TRUE)
-meterMin <- read.csv("minutes.csv", header = TRUE, strip.white = TRUE)
-#meterAttr <- read.csv("m2mgeneric.csv", header = TRUE, strip.white = TRUE)
+dm.logs <-
+  read.csv("battery.csv", header = FALSE, strip.white = TRUE)
+#meter.hours <- read.csv("hours.csv", header = TRUE, strip.white = TRUE)
+meter.min <-
+  read.csv("minutes.csv", header = TRUE, strip.white = TRUE)
+#meter.attr <- read.csv("m2mgeneric.csv", header = TRUE, strip.white = TRUE)
 
-names(dmLogs)[1] = "remaining_time_minutes"
-names(dmLogs)[2] = "power_rate_w"
-names(dmLogs)[3] = "remaining_capacity_percent"
-names(dmLogs)[4] = "voltage_v"
-names(dmLogs)[5] = "charging_bool"
-names(dmLogs)[6] = "discharging_bool"
-names(dmLogs)[7] = "ac_connected_bool"
-names(dmLogs)[8] = "log_date"
+names(dm.logs)[1] = "remaining.time.minutes"
+names(dm.logs)[2] = "power.rate.w"
+names(dm.logs)[3] = "remaining.capacity.percent"
+names(dm.logs)[4] = "voltage"
+names(dm.logs)[5] = "charging"
+names(dm.logs)[6] = "discharging"
+names(dm.logs)[7] = "ac.connected"
+names(dm.logs)[8] = "log.date.time"
 
-dmLogs$charging_bool = as.logical(dmLogs$charging_bool)
-dmLogs$discharging_bool = as.logical(dmLogs$discharging_bool)
-dmLogs$ac_connected_bool = as.logical(dmLogs$ac_connected_bool)
-dmLogs$log_date = as.character(dmLogs$log_date)
-dmLogs$log_date = strptime(dmLogs$log_date, format = '%a %b %d %Y %H:%M:%S GMT%z')
-dmLogs$log_date = strftime(dmLogs$log_date, format = '%Y-%m-%d %H:%M')
-dmLogs$remaining_time_minutes[is.na(dmLogs$remaining_time_minutes)] = 180
+dm.logs$charging = as.logical(dm.logs$charging)
+dm.logs$discharging = as.logical(dm.logs$discharging)
+dm.logs$ac.connected = as.logical(dm.logs$ac.connected)
+dm.logs$log.date.time = as.character(dm.logs$log.date.time)
+dm.logs$log.date.time = strptime(dm.logs$log.date.time, format = '%a %b %d %Y %H:%M:%S GMT%z')
+dm.logs$log.date.time = strftime(dm.logs$log.date.time, format = '%Y-%m-%d %H:%M')
+dm.logs$remaining.time.minutes[is.nan(dm.logs$remaining.time.minutes)] = 180
 
-meterMin$sId = NULL
-meterMin$ttl_time = NULL
-meterMin$last_val_time = NULL
-meterMin$type = NULL
-meterMin$last_val = NULL
-meterMin$time = as.POSIXct(meterMin$time / 1000, origin = "1970-01-01", tz = "Europe/Berlin")
-meterMin$time = strftime(meterMin$time, format = '%Y-%m-%d %H:%M')
-names(meterMin)[names(meterMin) == 'min'] = "min_measured_power_w"
-names(meterMin)[names(meterMin) == 'max'] = "max_measured_power_w"
-names(meterMin)[names(meterMin) == 'ave'] = "ave_measured_power_w"
-names(meterMin)[names(meterMin) == 'time'] = "log_date"
-meterMin = meterMin[meterMin$tag == "active_pwr", ]
-meterMin$tag = NULL
+meter.min$sId = NULL
+meter.min$ttl_time = NULL
+meter.min$last_val_time = NULL
+meter.min$type = NULL
+meter.min$last_val = NULL
+meter.min$time = as.POSIXct(meter.min$time / 1000, origin = "1970-01-01", tz = "Europe/Berlin")
+meter.min$time = strftime(meter.min$time, format = '%Y-%m-%d %H:%M')
+names(meter.min)[names(meter.min) == 'min'] = "min.measured.power.w"
+names(meter.min)[names(meter.min) == 'max'] = "max.measured.power.w"
+names(meter.min)[names(meter.min) == 'ave'] = "ave.measured.power.w"
+names(meter.min)[names(meter.min) == 'time'] = "log.date.time"
+meter.min = meter.min[meter.min$tag == "active_pwr", ]
+meter.min$tag = NULL
 
-merged = merge(x = dmLogs, y = meterMin, by = "log_date")
+merged = merge(x = dm.logs, y = meter.min, by = "log.date.time")
+merged = merged[merged$power.rate.w != 0, ]
+merged = merged[merged$ave.measured.power.w != 0, ]
+merged = merged[merged$ac.connected, ]
 
-#names(dmLogs)
-#table(dmLogs$power_rate_w)
-#class(dmLogs$power_rate_w)
-#str(dmLogs)
+dim(merged)
+
+plot(
+  x = merged$power.rate.w,
+  y = merged$ave.measured.power.w,
+  main = "App vs Meter measured power",
+  xlab = "App measured power (watts)",
+  ylab = "Meter measured power (watts)"
+)
+
+power.model = lm(formula = ave.measured.power.w ~ power.rate.w , data = merged)
+
+summary(power.model)
+
+lines(
+  x = merged$power.rate.w,
+  y = power.model$fitted.values,
+  col = "blue",
+  lwd = 3
+)
+
+measured.power.cor = cor(x = merged$power.rate.w,
+                         y = merged$ave.measured.power.w)
+
+power.predict = predict(object = power.model, newdata = data.frame(power.rate.w = c(10, 15, 20)))
+
+# plot(merged[, c(
+#   'power.rate.w',
+#   'min.measured.power.w',
+#   'max.measured.power.w',
+#   'ave.measured.power.w'
+# )])
+
+#names(dm.logs)
+#table(dm.logs$power.rate.w)
+#class(dm.logs$power.rate.w)
+#str(dm.logs)
 #is.something # is.numeric or nan
-#as.something # as.numeric or logical 
-#typeof(dmLogs)
-#colSums(is.na(meterMin))
 
-#summary(dmLogs$power_rate_w)
+#as.something # as.numeric or logical
+#typeof(dm.logs)
+#colSums(is.na(meter.min))
+#merged[sample(nrow(merged), 10), ]
+#aggregate(x=merged$power.rate.w, by=list(merged$voltage), FUN=summary)
+#range(merged$voltage)
 
-#write.csv(dmLogs, "battery_clean.csv")
-# write.csv(meterHours, "hours_clean.csv")
-# write.csv(meterMin, "minutes_clean.csv")
-# write.csv(meterAttr, "m2mgeneric_clean.csv")
+#summary(dm.logs$power.rate.w)
+#table(merged$ac.connected)
+
+#write.csv(dm.logs, "battery_clean.csv")
+# write.csv(meter.hours, "hours_clean.csv")
+# write.csv(meter.min, "minutes_clean.csv")
+# write.csv(meter.attr, "m2mgeneric_clean.csv")
