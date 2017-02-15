@@ -22,8 +22,10 @@ dm.logs$charging = as.logical(dm.logs$charging)
 dm.logs$discharging = as.logical(dm.logs$discharging)
 dm.logs$ac.connected = as.logical(dm.logs$ac.connected)
 dm.logs$log.date.time = as.character(dm.logs$log.date.time)
+
 dm.logs$log.date.time = strptime(dm.logs$log.date.time, format = '%a %b %d %Y %H:%M:%S GMT%z')
 dm.logs$log.date.time = strftime(dm.logs$log.date.time, format = '%Y-%m-%d %H:%M')
+
 dm.logs$remaining.time.minutes[is.nan(dm.logs$remaining.time.minutes)] = 180
 
 meter.min$sId = NULL
@@ -31,19 +33,32 @@ meter.min$ttl_time = NULL
 meter.min$last_val_time = NULL
 meter.min$type = NULL
 meter.min$last_val = NULL
+meter.min$min = NULL
+meter.min$max = NULL
+
 meter.min$time = as.POSIXct(meter.min$time / 1000, origin = "1970-01-01", tz = "Europe/Berlin")
 meter.min$time = strftime(meter.min$time, format = '%Y-%m-%d %H:%M')
-names(meter.min)[names(meter.min) == 'min'] = "min.measured.power.w"
-names(meter.min)[names(meter.min) == 'max'] = "max.measured.power.w"
-names(meter.min)[names(meter.min) == 'ave'] = "ave.measured.power.w"
 names(meter.min)[names(meter.min) == 'time'] = "log.date.time"
-meter.min = meter.min[meter.min$tag == "active_pwr", ]
-meter.min$tag = NULL
 
-merged = merge(x = dm.logs, y = meter.min, by = "log.date.time")
-merged = merged[merged$power.rate.w != 0, ]
-merged = merged[merged$ave.measured.power.w != 0, ]
-merged = merged[merged$ac.connected, ]
+meter.min.active.power = meter.min[meter.min$tag == "active_pwr",]
+names(meter.min.active.power)[names(meter.min.active.power) == 'ave'] = "ave.measured.power.w"
+meter.min.active.power$tag = NULL
+
+meter.min.energy.sum = meter.min[meter.min$tag == "energy_sum",]
+names(meter.min.energy.sum)[names(meter.min.energy.sum) == 'ave'] = "ave.measured.energy.sum"
+meter.min.energy.sum$tag = NULL
+
+meter.min.power.factor = meter.min[meter.min$tag == "pf",]
+names(meter.min.power.factor)[names(meter.min.power.factor) == 'ave'] = "ave.measured.power.factor"
+meter.min.power.factor$tag = NULL
+
+merged.meter.min = merge(x = meter.min.active.power, y = meter.min.energy.sum, by = "log.date.time")
+merged.meter.min = merge(x = merged.meter.min, y = meter.min.power.factor, by = "log.date.time")
+
+merged = merge(x = dm.logs, y = merged.meter.min, by = "log.date.time")
+merged = merged[merged$power.rate.w != 0,]
+merged = merged[merged$ave.measured.power.w != 0,]
+merged = merged[merged$ac.connected,]
 
 dim(merged)
 
