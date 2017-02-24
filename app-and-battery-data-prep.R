@@ -3,7 +3,7 @@ Sys.setlocale("LC_TIME", "C")
 setwd("~/exports")
 
 dm.logs <-
-  read.csv("battery.csv", header = FALSE, strip.white = TRUE)
+  read.csv("battery_1.csv", header = FALSE, strip.white = TRUE)
 #meter.hours <- read.csv("hours.csv", header = TRUE, strip.white = TRUE)
 meter.min <-
   read.csv("minutes.csv", header = TRUE, strip.white = TRUE)
