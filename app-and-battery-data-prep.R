@@ -3,7 +3,7 @@ Sys.setlocale("LC_TIME", "C")
 setwd("~/exports")
 
 dm.logs <-
-  read.csv("battery_1.csv", header = FALSE, strip.white = TRUE)
+  read.csv("battery_first_data.csv", header = FALSE, strip.white = TRUE)
 #meter.hours <- read.csv("hours.csv", header = TRUE, strip.white = TRUE)
 meter.min <-
   read.csv("minutes.csv", header = TRUE, strip.white = TRUE)
@@ -65,9 +65,11 @@ dim(merged)
 plot(
   x = merged$power.rate.w,
   y = merged$ave.measured.power.w,
-  main = "App vs Meter measured power",
-  xlab = "App measured power (watts)",
-  ylab = "Meter measured power (watts)"
+  main = "App vs Power Meter Measured Power",
+  xlab = "App Measured Power (watts)",
+  ylab = "Meter Measured Power (watts)",
+  pch="*",
+  col="blue"
 )
 
 power.model = lm(formula = ave.measured.power.w ~ power.rate.w , data = merged)
@@ -77,8 +79,8 @@ summary(power.model)
 lines(
   x = merged$power.rate.w,
   y = power.model$fitted.values,
-  col = "blue",
-  lwd = 3
+  col = "red",
+  lwd = 5
 )
 
 measured.power.cor = cor(x = merged$power.rate.w,
@@ -109,7 +111,7 @@ power.predict = predict(object = power.model, newdata = data.frame(power.rate.w 
 #summary(dm.logs$power.rate.w)
 #table(merged$ac.connected)
 
-#write.csv(dm.logs, "battery_clean.csv")
+# write.csv(dm.logs, "battery_clean.csv")
 # write.csv(meter.hours, "hours_clean.csv")
 # write.csv(meter.min, "minutes_clean.csv")
 # write.csv(meter.attr, "m2mgeneric_clean.csv")

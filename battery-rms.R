@@ -12,11 +12,17 @@ dm.logs.save <-
            header = FALSE,
            strip.white = TRUE)
 
-meter.logs <-
-  read.csv("rms_data_meter.csv",
-           header = TRUE,
-           strip.white = TRUE)
+# meter.logs <-
+#   read.csv("rms_data_meter_per_file_counting.csv",
+#            header = TRUE,
+#            strip.white = TRUE)
 
+meter.logs <-
+  read.csv(
+    "rms_data_meter_continus_counting.csv",
+    header = TRUE,
+    strip.white = TRUE
+  )
 
 names(dm.logs.normal)[1] = "remaining.time.minutes"
 names(dm.logs.normal)[2] = "power.rate.w"
@@ -97,33 +103,57 @@ dm.logs.save$voltage[is.nan(dm.logs.save$voltage)] = mean(dm.logs.save$voltage, 
 names(meter.logs)[names(meter.logs) == 'datetime'] = "log.date.time"
 names(meter.logs)[names(meter.logs) == 'power_watts'] = "measured.power.w"
 meter.logs$log.date.time = as.character(meter.logs$log.date.time)
+meter.logs$measured.power.w = meter.logs$measured.power.w * .5 # mean power factor
 
-merged = merge(x = dm.logs.normal, y = meter.logs, by = "log.date.time")
-merged = merged[merged$power.rate.w != 0, ]
-merged = merged[merged$measured.power.w != 0, ]
-merged = merged[merged$ac.connected, ]
+merged.normal = merge(x = dm.logs.normal, y = meter.logs, by = "log.date.time")
+merged.normal = merged.normal[merged.normal$power.rate.w != 0, ]
+merged.normal = merged.normal[merged.normal$measured.power.w != 0, ]
+merged.normal = merged.normal[merged.normal$ac.connected, ]
+
+merged.save = merge(x = dm.logs.save, y = meter.logs, by = "log.date.time")
+merged.save = merged.save[merged.save$power.rate.w != 0, ]
+merged.save = merged.save[merged.save$measured.power.w != 0, ]
+merged.save = merged.save[merged.save$ac.connected, ]
+
 
 plot(
-  x = merged$cpu.usage.percent,
-  y = merged$measured.power.w,
-  main = "App vs Meter measured power",
-  xlab = "App measured apparent power (watts)",
-  ylab = "Meter measured power (watts)"
+  x = merged.save$power.rate.w,
+  y = merged.save$measured.power.w,
+  main = "App vs Power Meter Measured Power",
+  xlab = "App Measured Power (watts)",
+  ylab = "Meter Measured Power (watts)",
+  pch="*",
+  col="blue"
 )
 
 power.model = lm(
-  formula = measured.power.w ~ power.rate.w + memory.usage.percent + read.request.per.second + write.request.per.second +
-    cpu.usage.percent,
-  data = merged
+  formula = measured.power.w ~ power.rate.w ,
+  data = merged.save
 )
 
 lines(
-  x = merged$power.rate.w,
+  x = merged.save$power.rate.w,
   y = power.model$fitted.values,
-  col = "blue",
-  lwd = 3
+  col = "red",
+  lwd = 5
 )
 
-# plot(
-# x= meter.logs$measured.power.w
+#plot(merged.normal$measured.power.w)
+
+summary(merged.normal$measured.power.w)
+summary(merged.save$measured.power.w)
+
+percentage.to.normal = mean(merged.save$measured.power.w) / mean(merged.normal$measured.power.w)
+
+mean.normal = mean(merged.normal$measured.power.w)
+mean.save = mean(merged.save$measured.power.w)
+
+# barplot(
+#   c(mean.normal, mean.save),
+#   width = 0.5,
+#   col = c('lightblue'),
+#   names.arg = c('Normal Power Mode', 'Power Save Mode'),
+#   xlab = "Average Power Consumption in Different Power Mode in Ubuntu",
+#   ylab = "Real Power Consumption (watts)",
+#   ylim = c(0, 50)
 # )
