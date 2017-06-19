@@ -23,4 +23,4 @@ dm.logs.my.ubuntu.nofare$time = strftime(dm.logs.my.ubuntu.nofare$time, format =
 
 merged.my.ubuntu = merge(x = dm.logs.my.ubuntu, y = dm.logs.my.ubuntu.nofare, by = "time")
 
-write.csv(merged.my.ubuntu, "merged_my_ubuntu.csv")
+write.csv(merged.my.ubuntu, "merged_my_ubuntu.csv", row.names=FALSE)

@@ -23,4 +23,4 @@ dm.logs.my.windows.nofare$time = strftime(dm.logs.my.windows.nofare$time, format
 
 merged.my.windows = merge(x = dm.logs.my.windows, y = dm.logs.my.windows.nofare, by = "time")
 
-write.csv(merged.my.windows, "merged_my_windows.csv")
+write.csv(merged.my.windows, "merged_my_windows.csv", row.names=FALSE)

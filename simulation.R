@@ -2,12 +2,52 @@ Sys.setlocale("LC_TIME", "C")
 
 setwd("~/exports")
 
-merged.ubuntu <-
-  read.csv("merged_my_ubuntu.csv", header = TRUE, strip.white = TRUE)
+mean.windows.normal = mean(merged.windows.normal$real_power)
+mean.windows.save = mean(merged.windows.save$real_power)
 
-merged.ubuntu$time = as.character(merged.ubuntu$time)
+mean.ubuntu.normal = mean(merged.ubuntu.normal$real_power)
+mean.ubuntu.save = mean(merged.ubuntu.save$real_power)
 
-merged.windows <-
-  read.csv("dm_logs_my_windows.csv", header = TRUE, strip.white = TRUE)
+# attach(mtcars)
+# par(mfrow=c(3,1))
 
-merged.windows$time = as.character(merged.windows$time)
+plot(
+  x = merged.windows.normal$power_rate_w,
+  y = merged.windows.normal$real_power,
+  main = "Windows Normal",
+  xlab = "App Measured Power (watts)",
+  ylab = "Meter Measured Power (watts)",
+  pch="*",
+  col="blue"
+)
+
+plot(
+  x = merged.windows.save$power_rate_w,
+  y = merged.windows.save$real_power,
+  main = "Windows Save",
+  xlab = "App Measured Power (watts)",
+  ylab = "Meter Measured Power (watts)",
+  pch="*",
+  col="blue"
+)
+
+plot(
+  x = merged.ubuntu.normal$power_rate_w,
+  y = merged.ubuntu.normal$real_power,
+  main = "Ubuntu Normal",
+  xlab = "App Measured Power (watts)",
+  ylab = "Meter Measured Power (watts)",
+  pch="*",
+  col="blue"
+)
+
+plot(
+  x = merged.ubuntu.save$power_rate_w,
+  y = merged.ubuntu.save$real_power,
+  main = "Ubuntu Save",
+  xlab = "App Measured Power (watts)",
+  ylab = "Meter Measured Power (watts)",
+  pch="*",
+  col="blue"
+)
+
