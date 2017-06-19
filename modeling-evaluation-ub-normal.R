@@ -9,7 +9,7 @@ test.ub.nr <- filtered.ubunutu.normal[-train.ub.normal.index,]
 md.ub.nr <-
   lm(
     real_power ~ power_rate_w  + I(power_rate_w ^ 2) + charging_bool + power_rate_w:brightness_percent  + power_rate_w:remaining_capacity_percent  +
-      brightness_percent + cpu_usage_percent + memory_percent  + remaining_capacity_percent + download_upload_kb + read_write_request,
+      cpu_usage_percent + memory_percent  + remaining_capacity_percent + download_upload_kb + read_write_request,
     data = train.ub.nr
   )
 
@@ -37,8 +37,8 @@ cross.val.ub.nr <-
   suppressWarnings(
     cv.lm(
       data = filtered.ubunutu.normal,
-      form.lm =     real_power ~ power_rate_w  + I(power_rate_w ^ 2) + charging_bool + power_rate_w:brightness_percent  + power_rate_w:remaining_capacity_percent  +
-        brightness_percent + cpu_usage_percent + memory_percent  + remaining_capacity_percent + download_upload_kb + read_write_request,
+      form.lm = real_power ~ power_rate_w  + I(power_rate_w ^ 2) + charging_bool + power_rate_w:brightness_percent  + power_rate_w:remaining_capacity_percent  +
+        cpu_usage_percent + memory_percent  + remaining_capacity_percent + download_upload_kb + read_write_request,
       m = 5,
       dots = FALSE,
       seed = 123,

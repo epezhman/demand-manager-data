@@ -37,7 +37,7 @@ cross.val.ub.sv <-
   suppressWarnings(
     cv.lm(
       data = filtered.ubunutu.save,
-      form.lm = real_power ~ power_rate_w  + I(power_rate_w ^ 2) + charging_bool + power_rate_w:brightness_percent  + power_rate_w:remaining_capacity_percent  +
+      form.lm =  real_power ~ power_rate_w  + I(power_rate_w ^ 2) + charging_bool + power_rate_w:brightness_percent  + power_rate_w:remaining_capacity_percent  +
         cpu_usage_percent + memory_percent  + remaining_capacity_percent + download_upload_kb + read_write_request,
       m = 5,
       dots = FALSE,
