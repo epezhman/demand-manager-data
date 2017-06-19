@@ -28,8 +28,8 @@ merged.windows$cpu_cores <- 4
 merged.ubuntu$real_power[merged.ubuntu$real_power < 0] = 0
 merged.windows$real_power[merged.windows$real_power < 0] = 0
 
-merged.windows = merged.windows[merged.windows$real_power > 2, ]
-merged.ubuntu = merged.ubuntu[merged.ubuntu$real_power > 2, ]
+merged.windows = merged.windows[merged.windows$real_power > 8, ]
+merged.ubuntu = merged.ubuntu[merged.ubuntu$real_power > 8, ]
 
 merged.windows$charging_bool = as.factor(merged.windows$charging_bool)
 merged.ubuntu$charging_bool = as.factor(merged.ubuntu$charging_bool)
