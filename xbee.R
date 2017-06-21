@@ -9,3 +9,22 @@ xbee <-
 str(xbee)
 
 
+
+setwd("~/Dropbox/i13monclient/xbee/")
+
+xbee.win.sv <-
+  read.csv("save.csv",
+           header = TRUE,
+           strip.white = TRUE)
+
+xbee.win.nr <-
+  read.csv("normal.csv",
+           header = TRUE,
+           strip.white = TRUE)
+mean (xbee.win.nr$power)
+mean (xbee.win.sv$power)
+
+en.nr = xbee.win.nr[104, ]$work - xbee.win.nr[1, ]$work
+en.sv = xbee.win.sv[105, ]$work - xbee.win.sv[1, ]$work
+
+

@@ -82,3 +82,4 @@ plot(leaps.windows.normal, scale = "bic")
 summary.out.windows.normal <- summary(leaps.windows.normal)
 which.max(summary.out.windows.normal$adjr2)
 #summary.out$which[26, ]
+

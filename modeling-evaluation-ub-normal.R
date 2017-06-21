@@ -1,4 +1,9 @@
+library(DAAG)
+library(broom)
+setwd("~/exports")
+
 set.seed(123)
+par(mfrow = c(1, 1))
 
 train.ub.normal.index <-
   sample(1:nrow(filtered.ubunutu.normal),
@@ -8,10 +13,13 @@ test.ub.nr <- filtered.ubunutu.normal[-train.ub.normal.index,]
 
 md.ub.nr <-
   lm(
-    real_power ~ power_rate_w  + I(power_rate_w ^ 2) + charging_bool + power_rate_w:brightness_percent  + power_rate_w:remaining_capacity_percent  +
+    real_power ~ power_rate_w  + I(power_rate_w ^ 2) + charging_bool + power_rate_w:remaining_capacity_percent  +
       cpu_usage_percent + memory_percent  + remaining_capacity_percent + download_upload_kb + read_write_request,
     data = train.ub.nr
   )
+
+tidy.md.ub.nr <- tidy(md.ub.nr)
+write.csv(tidy.md.ub.nr, "_ubuntu_normal_coef.csv")
 
 summary(md.ub.nr)
 
@@ -37,7 +45,7 @@ cross.val.ub.nr <-
   suppressWarnings(
     cv.lm(
       data = filtered.ubunutu.normal,
-      form.lm = real_power ~ power_rate_w  + I(power_rate_w ^ 2) + charging_bool + power_rate_w:brightness_percent  + power_rate_w:remaining_capacity_percent  +
+      form.lm = real_power ~ power_rate_w  + I(power_rate_w ^ 2) + charging_bool   + power_rate_w:remaining_capacity_percent  +
         cpu_usage_percent + memory_percent  + remaining_capacity_percent + download_upload_kb + read_write_request,
       m = 5,
       dots = FALSE,
@@ -50,6 +58,5 @@ cross.val.ub.nr <-
 # performs the CV
 attr(cross.val.ub.nr, 'ms')
 
-
-boxplot(filtered.ubunutu.normal$real_power, main="realpower", sub=paste("Outlier rows: ", boxplot.stats(filtered.ubunutu.normal$real_power)$out))
+#boxplot(filtered.ubunutu.normal$real_power, main="realpower", sub=paste("Outlier rows: ", boxplot.stats(filtered.ubunutu.normal$real_power)$out))
 

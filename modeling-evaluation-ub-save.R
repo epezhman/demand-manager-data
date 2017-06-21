@@ -1,4 +1,9 @@
+library(DAAG)
+library(broom)
+setwd("~/exports")
+
 set.seed(123)
+par(mfrow = c(1, 1))
 
 train.ub.sv.index <-
   sample(1:nrow(filtered.ubunutu.save),
@@ -8,10 +13,13 @@ test.ub.sv  <- filtered.ubunutu.save[-train.ub.sv.index,]
 
 md.ub.sv <-
   lm(
-    real_power ~ power_rate_w  + I(power_rate_w ^ 2) + charging_bool + power_rate_w:brightness_percent  + power_rate_w:remaining_capacity_percent  +
+    real_power ~ power_rate_w  + I(power_rate_w ^ 2) + charging_bool  + power_rate_w:remaining_capacity_percent  +
       cpu_usage_percent + memory_percent  + remaining_capacity_percent + download_upload_kb + read_write_request,
     data = train.ub.sv
   )
+
+tidy.md.ub.sv <- tidy(md.ub.sv)
+write.csv(tidy.md.ub.sv, "_ubuntu_save_coef.csv")
 
 summary(md.ub.sv)
 
@@ -31,13 +39,11 @@ min.max.accuracy.ub.sv <-
 mape.ub.save <-
   mean(abs(actual.pred.ub.sv$predicteds - actual.pred.ub.sv$actuals) / actual.pred.ub.sv$actuals)
 
-library(DAAG)
-
 cross.val.ub.sv <-
   suppressWarnings(
     cv.lm(
       data = filtered.ubunutu.save,
-      form.lm =  real_power ~ power_rate_w  + I(power_rate_w ^ 2) + charging_bool + power_rate_w:brightness_percent  + power_rate_w:remaining_capacity_percent  +
+      form.lm =  real_power ~ power_rate_w  + I(power_rate_w ^ 2) + charging_bool   + power_rate_w:remaining_capacity_percent  +
         cpu_usage_percent + memory_percent  + remaining_capacity_percent + download_upload_kb + read_write_request,
       m = 5,
       dots = FALSE,
@@ -50,6 +56,5 @@ cross.val.ub.sv <-
 # performs the CV
 attr(cross.val.ub.sv, 'ms')
 
-
-boxplot(filtered.ubunutu.save$real_power, main="realpower", sub=paste("Outlier rows: ", boxplot.stats(filtered.ubunutu.save$real_power)$out))
+#boxplot(filtered.ubunutu.save$real_power, main="realpower", sub=paste("Outlier rows: ", boxplot.stats(filtered.ubunutu.save$real_power)$out))
 

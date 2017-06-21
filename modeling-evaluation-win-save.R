@@ -1,4 +1,9 @@
+library(DAAG)
+library(broom)
+setwd("~/exports")
+
 set.seed(123)
+par(mfrow = c(1, 1))
 
 train.win.sv.index <-
   sample(1:nrow(filtered.windows.save),
@@ -12,6 +17,9 @@ md.win.sv <-
       cpu_usage_percent + memory_percent  + remaining_capacity_percent + download_upload_kb + read_write_request,
     data = train.win.sv
   )
+
+tidy.md.win.sv <- tidy(md.win.sv)
+write.csv(tidy.md.win.sv, "_windows_save_coef.csv")
 
 summary(md.win.sv)
 
@@ -31,8 +39,6 @@ min.max.accuracy.win.sv <-
 mape.win.save <-
   mean(abs(actual.pred.win.sv$predicteds - actual.pred.win.sv$actuals) / actual.pred.win.sv$actuals)
 
-library(DAAG)
-
 cross.val.win.sv <-
   suppressWarnings(
     cv.lm(
@@ -50,6 +56,5 @@ cross.val.win.sv <-
 # performs the CV
 attr(cross.val.win.sv, 'ms')
 
-
-boxplot(filtered.windows.save$real_power, main="realpower", sub=paste("Outlier rows: ", boxplot.stats(filtered.windows.save$real_power)$out))
+#boxplot(filtered.windows.save$real_power, main="realpower", sub=paste("Outlier rows: ", boxplot.stats(filtered.windows.save$real_power)$out))
 

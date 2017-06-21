@@ -45,6 +45,16 @@ merged.ubuntu$download_upload_kb = merged.ubuntu$download_kb + merged.ubuntu$upl
 merged.windows$read_write_request = merged.windows$read_request_per_s + merged.windows$write_request_per_s
 merged.ubuntu$read_write_request = merged.ubuntu$read_request_per_s + merged.ubuntu$write_request_per_s
 
+merged.ubuntu$read_write_request[merged.ubuntu$read_write_request > 1000] = 1000
+merged.windows$read_write_request[merged.windows$read_write_request > 1000] = 1000
+merged.ubuntu$read_write_request = merged.ubuntu$read_write_request / 10
+merged.windows$read_write_request = merged.windows$read_write_request / 10
+
+merged.ubuntu$download_upload_kb[merged.ubuntu$download_upload_kb > 1000] = 1000
+merged.windows$download_upload_kb[merged.windows$download_upload_kb > 1000] = 1000
+merged.ubuntu$download_upload_kb = merged.ubuntu$download_upload_kb / 10
+merged.windows$download_upload_kb = merged.windows$download_upload_kb / 10
+
 filtered.ubunutu.save <-
   merged.ubuntu[merged.ubuntu$dm_enabled, c(
     "brightness_percent",
@@ -96,3 +106,4 @@ filtered.windows.normal <-
     "read_write_request",
     "real_power"
   )]
+
