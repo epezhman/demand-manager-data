@@ -1,3 +1,4 @@
+library(lattice)
 library(DAAG)
 library(broom)
 setwd("~/exports")
