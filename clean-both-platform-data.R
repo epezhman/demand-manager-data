@@ -55,55 +55,76 @@ merged.windows$download_upload_kb[merged.windows$download_upload_kb > 1000] = 10
 merged.ubuntu$download_upload_kb = merged.ubuntu$download_upload_kb / 10
 merged.windows$download_upload_kb = merged.windows$download_upload_kb / 10
 
+names(merged.windows)[names(merged.windows) == 'real_power'] = "real.power"
+names(merged.windows)[names(merged.windows) == 'power_rate_w'] = "battery.rate"
+names(merged.windows)[names(merged.windows) == 'charging_bool'] = "charging.status"
+names(merged.windows)[names(merged.windows) == 'brightness_percent'] = "brightness"
+names(merged.windows)[names(merged.windows) == 'remaining_capacity_percent'] = "battery.capacity"
+names(merged.windows)[names(merged.windows) == 'cpu_usage_percent'] = "cpu.usage"
+names(merged.windows)[names(merged.windows) == 'memory_percent'] = "memory.usage"
+names(merged.windows)[names(merged.windows) == 'download_upload_kb'] = "download.upload"
+names(merged.windows)[names(merged.windows) == 'read_write_request'] = "read.write"
+
+names(merged.ubuntu)[names(merged.ubuntu) == 'real_power'] = "real.power"
+names(merged.ubuntu)[names(merged.ubuntu) == 'power_rate_w'] = "battery.rate"
+names(merged.ubuntu)[names(merged.ubuntu) == 'charging_bool'] = "charging.status"
+names(merged.ubuntu)[names(merged.ubuntu) == 'brightness_percent'] = "brightness"
+names(merged.ubuntu)[names(merged.ubuntu) == 'remaining_capacity_percent'] = "battery.capacity"
+names(merged.ubuntu)[names(merged.ubuntu) == 'cpu_usage_percent'] = "cpu.usage"
+names(merged.ubuntu)[names(merged.ubuntu) == 'memory_percent'] = "memory.usage"
+names(merged.ubuntu)[names(merged.ubuntu) == 'download_upload_kb'] = "download.upload"
+names(merged.ubuntu)[names(merged.ubuntu) == 'read_write_request'] = "read.write"
+
+
 filtered.ubunutu.save <-
   merged.ubuntu[merged.ubuntu$dm_enabled, c(
-    "brightness_percent",
-    "charging_bool",
-    "cpu_usage_percent",
-    "memory_percent",
-    "power_rate_w",
-    "remaining_capacity_percent",
-    "download_upload_kb",
-    "read_write_request",
-    "real_power"
+    "brightness",
+    "charging.status",
+    "cpu.usage",
+    "memory.usage",
+    "battery.rate",
+    "battery.capacity",
+    "download.upload",
+    "read.write",
+    "real.power"
   )]
 
 filtered.ubunutu.normal <-
   merged.ubuntu[!merged.ubuntu$dm_enabled, c(
-    "brightness_percent",
-    "charging_bool",
-    "cpu_usage_percent",
-    "memory_percent",
-    "power_rate_w",
-    "remaining_capacity_percent",
-    "download_upload_kb",
-    "read_write_request",
-    "real_power"
+    "brightness",
+    "charging.status",
+    "cpu.usage",
+    "memory.usage",
+    "battery.rate",
+    "battery.capacity",
+    "download.upload",
+    "read.write",
+    "real.power"
   )]
 
 filtered.windows.save <-
   merged.windows[merged.windows$dm_enabled, c(
-    "brightness_percent",
-    "charging_bool",
-    "cpu_usage_percent",
-    "memory_percent",
-    "power_rate_w",
-    "remaining_capacity_percent",
-    "download_upload_kb",
-    "read_write_request",
-    "real_power"
+    "brightness",
+    "charging.status",
+    "cpu.usage",
+    "memory.usage",
+    "battery.rate",
+    "battery.capacity",
+    "download.upload",
+    "read.write",
+    "real.power"
   )]
 
 filtered.windows.normal <-
   merged.windows[!merged.windows$dm_enabled, c(
-    "brightness_percent",
-    "charging_bool",
-    "cpu_usage_percent",
-    "memory_percent",
-    "power_rate_w",
-    "remaining_capacity_percent",
-    "download_upload_kb",
-    "read_write_request",
-    "real_power"
+    "brightness",
+    "charging.status",
+    "cpu.usage",
+    "memory.usage",
+    "battery.rate",
+    "battery.capacity",
+    "download.upload",
+    "read.write",
+    "real.power"
   )]
 

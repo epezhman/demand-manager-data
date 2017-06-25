@@ -14,8 +14,8 @@ test.win.nr  <- filtered.windows.normal[-train.win.nr.index,]
 
 md.win.nr <-
   lm(
-    real_power ~ power_rate_w  + I(power_rate_w ^ 2) + charging_bool + power_rate_w:brightness_percent  + power_rate_w:remaining_capacity_percent  +
-      cpu_usage_percent + memory_percent  + remaining_capacity_percent + download_upload_kb + read_write_request,
+    real.power ~ battery.rate  + I(battery.rate ^ 2) + charging.status +  battery.rate:brightness  + battery.rate:battery.capacity  +
+      cpu.usage + memory.usage  + battery.capacity + download.upload + read.write,
     data = train.win.nr
   )
 
@@ -40,23 +40,4 @@ min.max.accuracy.win.nr <-
 mape.win.nr <-
   mean(abs(actual.pred.win.nr$predicteds - actual.pred.win.nr$actuals) / actual.pred.win.nr$actuals)
 
-
-cross.val.win.nr <-
-  suppressWarnings(
-    cv.lm(
-      data = filtered.windows.normal,
-      form.lm =  real_power ~ power_rate_w  + I(power_rate_w ^ 2) + charging_bool + power_rate_w:brightness_percent  + power_rate_w:remaining_capacity_percent  +
-        cpu_usage_percent + memory_percent  + remaining_capacity_percent + download_upload_kb + read_write_request,
-      m = 5,
-      dots = FALSE,
-      seed = 123,
-      legend.pos = "topleft",
-      printit = FALSE,
-      main = "Small symbols are predicted values while bigger ones are actuals."
-    )
-  )
-# performs the CV
-attr(cross.val.win.nr, 'ms')
-
 #boxplot(filtered.windows.normal$real_power, main="real_power", sub=paste("Outlier rows: ", boxplot.stats(filtered.windows.normal$real_power)$out))
-

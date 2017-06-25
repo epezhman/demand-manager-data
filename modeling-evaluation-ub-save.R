@@ -14,8 +14,8 @@ test.ub.sv  <- filtered.ubunutu.save[-train.ub.sv.index,]
 
 md.ub.sv <-
   lm(
-    real_power ~ power_rate_w  + I(power_rate_w ^ 2) + charging_bool  + power_rate_w:remaining_capacity_percent  +
-      cpu_usage_percent + memory_percent  + remaining_capacity_percent + download_upload_kb + read_write_request,
+    real.power ~ battery.rate  + I(battery.rate ^ 2) + charging.status +   battery.rate:battery.capacity  +
+      cpu.usage + memory.usage  + battery.capacity + download.upload + read.write,
     data = train.ub.sv
   )
 
@@ -36,26 +36,8 @@ actual.pred.ub.sv <-
 correlation.accuracy.ub.sv <- cor(actual.pred.ub.sv)
 
 min.max.accuracy.ub.sv <-
-  mean(apply(actual.pred.ub.sv, 1, min) / apply(actual.pred.ub.sv, 1, max))
+  mean(apply(actual.pred.ub.sv, 1, min) / apply(actual.pred.ub.sv, 1, max)) * 100
 mape.ub.save <-
-  mean(abs(actual.pred.ub.sv$predicteds - actual.pred.ub.sv$actuals) / actual.pred.ub.sv$actuals)
-
-cross.val.ub.sv <-
-  suppressWarnings(
-    cv.lm(
-      data = filtered.ubunutu.save,
-      form.lm =  real_power ~ power_rate_w  + I(power_rate_w ^ 2) + charging_bool   + power_rate_w:remaining_capacity_percent  +
-        cpu_usage_percent + memory_percent  + remaining_capacity_percent + download_upload_kb + read_write_request,
-      m = 5,
-      dots = FALSE,
-      seed = 123,
-      legend.pos = "topleft",
-      printit = FALSE,
-      main = "Small symbols are predicted values while bigger ones are actuals."
-    )
-  )
-# performs the CV
-attr(cross.val.ub.sv, 'ms')
+  mean(abs(actual.pred.ub.sv$predicteds - actual.pred.ub.sv$actuals) / actual.pred.ub.sv$actuals) * 100
 
 #boxplot(filtered.ubunutu.save$real_power, main="realpower", sub=paste("Outlier rows: ", boxplot.stats(filtered.ubunutu.save$real_power)$out))
-
