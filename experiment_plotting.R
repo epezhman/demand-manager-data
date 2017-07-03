@@ -16,8 +16,8 @@ theme_set(theme_bw())
 #     linetype = 4,
 #     colour = "black"
 #   )
-# 
-# 
+#
+#
 # p1.median <-
 #   ggplot(aes(x = Time, y = RealPower , col = Participants), data = ex3.median) +   geom_point() +
 #   geom_smooth(span = 0.8) +
@@ -43,7 +43,7 @@ theme_set(theme_bw())
 #     linetype = 4,
 #     colour = "black"
 #   )
-# 
+#
 # p2.median <-
 #   ggplot(aes(x = Time, y = RealPower , col = Participants), data = ex4.median) +   geom_point() +
 #   geom_smooth(span = 0.8) +
@@ -67,6 +67,10 @@ p3.mean <-
     xintercept =  as.numeric(as.POSIXlt("2017-06-21 14:51:28")),
     linetype = 4,
     colour = "black"
+  ) + theme(
+    axis.text = element_text(size = 12),
+    axis.title = element_text(size = 14, face = "bold"),
+    legend.text = element_text(size = 16)
   )
 
 p3.median <-
@@ -79,6 +83,10 @@ p3.median <-
     xintercept =  as.numeric(as.POSIXlt("2017-06-21 14:51:28")),
     linetype = 4,
     colour = "black"
+  ) + theme(
+    axis.text = element_text(size = 12),
+    axis.title = element_text(size = 14, face = "bold"),
+    legend.text = element_text(size = 16)
   )
 
 #######################################################################################################
@@ -92,6 +100,10 @@ p4.mean <-
     xintercept =  as.numeric(as.POSIXlt("2017-06-21 15:10:23")),
     linetype = 4,
     colour = "black"
+  ) + theme(
+    axis.text = element_text(size = 12),
+    axis.title = element_text(size = 14, face = "bold"),
+    legend.text = element_text(size = 16)
   )
 
 p4.median <-
@@ -104,6 +116,10 @@ p4.median <-
     xintercept =  as.numeric(as.POSIXlt("2017-06-21 15:10:23")),
     linetype = 4,
     colour = "black"
+  ) + theme(
+    axis.text = element_text(size = 12),
+    axis.title = element_text(size = 14, face = "bold"),
+    legend.text = element_text(size = 16)
   )
 #######################################################################################################
 p5.mean <-
@@ -116,6 +132,10 @@ p5.mean <-
     xintercept =  as.numeric(as.POSIXlt("2017-06-21 15:25:31")),
     linetype = 4,
     colour = "black"
+  ) + theme(
+    axis.text = element_text(size = 12),
+    axis.title = element_text(size = 14, face = "bold"),
+    legend.text = element_text(size = 16)
   )
 
 p5.median <-
@@ -128,6 +148,10 @@ p5.median <-
     xintercept =  as.numeric(as.POSIXlt("2017-06-21 15:25:31")),
     linetype = 4,
     colour = "black"
+  ) + theme(
+    axis.text = element_text(size = 12),
+    axis.title = element_text(size = 14, face = "bold"),
+    legend.text = element_text(size = 16)
   )
 
 #######################################################################################################
@@ -141,6 +165,10 @@ p6.mean <-
     xintercept =  as.numeric(as.POSIXlt("2017-06-21 15:35:48")),
     linetype = 4,
     colour = "black"
+  ) + theme(
+    axis.text = element_text(size = 12),
+    axis.title = element_text(size = 14, face = "bold"),
+    legend.text = element_text(size = 16)
   )
 
 p6.median <-
@@ -153,6 +181,10 @@ p6.median <-
     xintercept =  as.numeric(as.POSIXlt("2017-06-21 15:35:48")),
     linetype = 4,
     colour = "black"
+  ) + theme(
+    axis.text = element_text(size = 12),
+    axis.title = element_text(size = 14, face = "bold"),
+    legend.text = element_text(size = 16)
   )
 
 #######################################################################################################
@@ -166,6 +198,10 @@ p7.mean <-
     xintercept =  as.numeric(as.POSIXlt("2017-06-21 15:46:25")),
     linetype = 4,
     colour = "black"
+  ) + theme(
+    axis.text = element_text(size = 12),
+    axis.title = element_text(size = 14, face = "bold"),
+    legend.text = element_text(size = 16)
   )
 
 p7.median <-
@@ -178,6 +214,10 @@ p7.median <-
     xintercept =  as.numeric(as.POSIXlt("2017-06-21 15:46:25")),
     linetype = 4,
     colour = "black"
+  ) + theme(
+    axis.text = element_text(size = 12),
+    axis.title = element_text(size = 14, face = "bold"),
+    legend.text = element_text(size = 16)
   )
 
 #######################################################################################################
@@ -202,28 +242,28 @@ print(p7.median)
 #           p2.mean,
 #           cols = 2)
 
-multiplot(p3.mean,
-          p4.mean,
-          cols = 2)
-
-multiplot(p5.mean,
-          p6.mean,
-          cols = 2)
-
-multiplot(p7.mean,
-          cols = 2)
-
-# multiplot(p1.median,
-#           p2.median,
+# multiplot(p3.mean,
+#           p4.mean,
 #           cols = 2)
-
-multiplot( p3.median,
-          p4.median,
-          cols = 2)
-
-multiplot(p5.median,
-          p6.median,
-          cols = 2)
-
-multiplot(p7.median,
-          cols = 2)
+#
+# multiplot(p5.mean,
+#           p6.mean,
+#           cols = 2)
+#
+# multiplot(p7.mean,
+#           cols = 2)
+#
+# # multiplot(p1.median,
+# #           p2.median,
+# #           cols = 2)
+#
+# multiplot(p3.median,
+#           p4.median,
+#           cols = 2)
+#
+# multiplot(p5.median,
+#           p6.median,
+#           cols = 2)
+#
+# multiplot(p7.median,
+#           cols = 2)

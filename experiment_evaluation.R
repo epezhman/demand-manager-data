@@ -374,6 +374,86 @@ experiments$before.median[experiments$id == 7] = median(ex9.before$pezh.jose.med
 experiments$after.mean[experiments$id == 7] = mean(ex9.after$pezh.jose.mean)
 experiments$after.median[experiments$id == 7] = median(ex9.after$pezh.jose.median)
 
+################################################################################################
+experiments$before.mean.pezh[experiments$id == 3] = mean(ex5.before$pow.pezh.lp.mean)
+experiments$before.median.pezh[experiments$id == 3] = median(ex5.before$pow.pezh.lp.median)
+experiments$after.mean.pezh[experiments$id == 3] = mean(ex5.after$pow.pezh.lp.mean)
+experiments$after.median.pezh[experiments$id == 3] = median(ex5.after$pow.pezh.lp.median)
+
+experiments$before.mean.pezh[experiments$id == 4] = mean(ex6.before$pow.pezh.lp.mean)
+experiments$before.median.pezh[experiments$id == 4] = median(ex6.before$pow.pezh.lp.median)
+experiments$after.mean.pezh[experiments$id == 4] = mean(ex6.after$pow.pezh.lp.mean)
+experiments$after.median.pezh[experiments$id == 4] = median(ex6.after$pow.pezh.lp.median)
+
+experiments$before.mean.pezh[experiments$id == 5] = mean(ex7.before$pow.pezh.lp.mean)
+experiments$before.median.pezh[experiments$id == 5] = median(ex7.before$pow.pezh.lp.median)
+experiments$after.mean.pezh[experiments$id == 5] = mean(ex7.after$pow.pezh.lp.mean)
+experiments$after.median.pezh[experiments$id == 5] = median(ex7.after$pow.pezh.lp.median)
+
+experiments$before.mean.pezh[experiments$id == 6] = mean(ex8.before$pow.pezh.lp.mean)
+experiments$before.median.pezh[experiments$id == 6] = median(ex8.before$pow.pezh.lp.median)
+experiments$after.mean.pezh[experiments$id == 6] = mean(ex8.after$pow.pezh.lp.mean)
+experiments$after.median.pezh[experiments$id == 6] = median(ex8.after$pow.pezh.lp.median)
+
+experiments$before.mean.pezh[experiments$id == 7] = mean(ex9.before$pow.pezh.lp.mean)
+experiments$before.median.pezh[experiments$id == 7] = median(ex9.before$pow.pezh.lp.median)
+experiments$after.mean.pezh[experiments$id == 7] = mean(ex9.after$pow.pezh.lp.mean)
+experiments$after.median.pezh[experiments$id == 7] = median(ex9.after$pow.pezh.lp.median)
+
+#############################################################################################
+experiments$before.mean.jose[experiments$id == 3] = mean(ex5.before$pow.jose.lp.mean)
+experiments$before.median.jose[experiments$id == 3] = median(ex5.before$pow.jose.lp.median)
+experiments$after.mean.jose[experiments$id == 3] = mean(ex5.after$pow.jose.lp.mean)
+experiments$after.median.jose[experiments$id == 3] = median(ex5.after$pow.jose.lp.median)
+
+experiments$before.mean.jose[experiments$id == 4] = mean(ex6.before$pow.jose.lp.mean)
+experiments$before.median.jose[experiments$id == 4] = median(ex6.before$pow.jose.lp.median)
+experiments$after.mean.jose[experiments$id == 4] = mean(ex6.after$pow.jose.lp.mean)
+experiments$after.median.jose[experiments$id == 4] = median(ex6.after$pow.jose.lp.median)
+
+experiments$before.mean.jose[experiments$id == 5] = mean(ex7.before$pow.jose.lp.mean)
+experiments$before.median.jose[experiments$id == 5] = median(ex7.before$pow.jose.lp.median)
+experiments$after.mean.jose[experiments$id == 5] = mean(ex7.after$pow.jose.lp.mean)
+experiments$after.median.jose[experiments$id == 5] = median(ex7.after$pow.jose.lp.median)
+
+experiments$before.mean.jose[experiments$id == 6] = mean(ex8.before$pow.jose.lp.mean)
+experiments$before.median.jose[experiments$id == 6] = median(ex8.before$pow.jose.lp.median)
+experiments$after.mean.jose[experiments$id == 6] = mean(ex8.after$pow.jose.lp.mean)
+experiments$after.median.jose[experiments$id == 6] = median(ex8.after$pow.jose.lp.median)
+
+experiments$before.mean.jose[experiments$id == 7] = mean(ex9.before$pow.jose.lp.mean)
+experiments$before.median.jose[experiments$id == 7] = median(ex9.before$pow.jose.lp.median)
+experiments$after.mean.jose[experiments$id == 7] = mean(ex9.after$pow.jose.lp.mean)
+experiments$after.median.jose[experiments$id == 7] = median(ex9.after$pow.jose.lp.median)
+
+#############################################################################################
+experiments$before.mean.mr[experiments$id == 3] = mean(ex5.before$pow.mr.lp.mean)
+experiments$before.median.mr[experiments$id == 3] = median(ex5.before$pow.mr.lp.median)
+experiments$after.mean.mr[experiments$id == 3] = mean(ex5.after$pow.mr.lp.mean)
+experiments$after.median.mr[experiments$id == 3] = median(ex5.after$pow.mr.lp.median)
+
+experiments$before.mean.mr[experiments$id == 4] = mean(ex6.before$pow.mr.lp.mean)
+experiments$before.median.mr[experiments$id == 4] = median(ex6.before$pow.mr.lp.median)
+experiments$after.mean.mr[experiments$id == 4] = mean(ex6.after$pow.mr.lp.mean)
+experiments$after.median.mr[experiments$id == 4] = median(ex6.after$pow.mr.lp.median)
+
+experiments$before.mean.mr[experiments$id == 5] = mean(ex7.before$pow.mr.lp.mean)
+experiments$before.median.mr[experiments$id == 5] = median(ex7.before$pow.mr.lp.median)
+experiments$after.mean.mr[experiments$id == 5] = mean(ex7.after$pow.mr.lp.mean)
+experiments$after.median.mr[experiments$id == 5] = median(ex7.after$pow.mr.lp.median)
+
+experiments$before.mean.mr[experiments$id == 6] = mean(ex8.before$pow.mr.lp.mean)
+experiments$before.median.mr[experiments$id == 6] = median(ex8.before$pow.mr.lp.median)
+experiments$after.mean.mr[experiments$id == 6] = mean(ex8.after$pow.mr.lp.mean)
+experiments$after.median.mr[experiments$id == 6] = median(ex8.after$pow.mr.lp.median)
+
+experiments$before.mean.mr[experiments$id == 7] = mean(ex9.before$pow.mr.lp.mean)
+experiments$before.median.mr[experiments$id == 7] = median(ex9.before$pow.mr.lp.median)
+experiments$after.mean.mr[experiments$id == 7] = mean(ex9.after$pow.mr.lp.mean)
+experiments$after.median.mr[experiments$id == 7] = median(ex9.after$pow.mr.lp.median)
+
+#############################################################################################
+
 experiments$mean.cut.watts = experiments$before.mean - experiments$after.mean
 experiments$mean.cut.percentage = ((experiments$before.mean - experiments$after.mean) / experiments$before.mean) * 100
 
@@ -381,6 +461,26 @@ experiments$median.cut.watts = experiments$before.median - experiments$after.med
 experiments$median.cut.percentage = ((experiments$before.median - experiments$after.median) / experiments$before.median) *
   100
 
+#########################################################################################################################
+#experiments$mean.cut.watts.pezh = experiments$before.mean.pezh - experiments$after.mean.pezh
+experiments$mean.cut.percentage.pezh = ((experiments$before.mean.pezh - experiments$after.mean.pezh) / experiments$before.mean.pezh) * 100
+
+#experiments$median.cut.watts.pezh = experiments$before.median.pezh - experiments$after.median.pezh
+#experiments$median.cut.percentage.pezh = ((experiments$before.median.pezh - experiments$after.median.pezh) / experiments$before.median.pezh) * 100
+
+#experiments$mean.cut.watts.jose = experiments$before.mean.jose - experiments$after.mean.jose
+experiments$mean.cut.percentage.jose = ((experiments$before.mean.jose - experiments$after.mean.jose) / experiments$before.mean.jose) * 100
+
+#experiments$median.cut.watts.jose = experiments$before.median.jose - experiments$after.median.jose
+#experiments$median.cut.percentage.jose = ((experiments$before.median.jose - experiments$after.median.jose) / experiments$before.median.jose) * 100
+
+#experiments$mean.cut.watts.mr = experiments$before.mean.mr - experiments$after.mean.mr
+experiments$mean.cut.percentage.mr = ((experiments$before.mean.mr - experiments$after.mean.mr) / experiments$before.mean.mr) * 100
+
+#experiments$median.cut.watts.mr = experiments$before.median.mr - experiments$after.median.mr
+#experiments$median.cut.percentage.mr= ((experiments$before.median.mr - experiments$after.median.mr) / experiments$before.median.mr) * 100
+
+##################################################################################################
 actual.pred.median <-
   data.frame(cbind(actuals = experiments$demand_cut, predicteds = experiments$median.cut.watts))
 actual.pred.mean <-
